@@ -22,7 +22,7 @@ set -xeo pipefail
 
 ## Define variables 
 
-WORKDIR=<insert raw sequence directort path>
+WORKDIR=/u/home/y/yhanyu/project-klohmuel/CRLF_raw_data
 
 ## Main 
 

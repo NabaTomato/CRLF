@@ -14,8 +14,8 @@
 
 ## setup workspace
 
-source <path to miniconda>
-conda activate CRLF
+# Load the Miniconda environment
+source /u/local/apps/anaconda3/2020.11/bin/conda activate CRLF
 
 set -xeo pipefail
 
@@ -27,7 +27,7 @@ REFERENCE_SEQ=GCA_023055505.1_bCalCai1.0.p_genomic.fasta
 
 ## Main
 
-echo -e "[$(date "+%Y-%m-%d %T")] JOB ID ${JOB_ID}.${SGE_TASK_ID}: Download Reference Genome for California Quail..."
+echo -e "[$(date "+%Y-%m-%d %T")] JOB ID ${JOB_ID}.${SGE_TASK_ID}: Download Reference Genome for CRLF..."
 cd ${WORKDIR}
 
 wget ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/023/055/505/GCA_023055505.1_bCalCai1.0.p/GCA_023055505.1_bCalCai1.0.p*
