@@ -1,16 +1,16 @@
 #!/bin/bash
 #$ -l highp,h_data=4G,h_rt=6:00:00
-#$ -wd <insert path to working directory>
-#$ -o <insert path to log directory>
-#$ -e <insert path to log directory>
+#$ -wd /u/home/y/yhanyu/project-klohmuel/CRLF_raw_data        # Set working directory
+#$ -o /u/home/y/yhanyu/project-klohmuel/logs/job_output.log  # output log
+#$ -e /u/home/y/yhanyu/project-klohmuel/logs/job_error.log   # error log
 #$ -m abe
-#$ -N step01_step01_b_CAQU_wgetRefGen
+#$ -N step01_step01_b_CRLF_wgetRefGen
 
 # Version: v1
-# Usage: qsub step01_step01_b_CAQU_wgetRefGen_20221103.sh
-# Description: Download California quail reference genome from NCBI
-# Author: Joseph Curti (jcurti3@g.ucla.edu)
-# Date: WED NOV 03 2022
+# Usage: qsub step01_step01_b_CAQU_wgetRefGen.sh
+# Description: Download CRLF reference genome (Rana muscosa) from NCBI
+# Author: Hanyu Yang (yhy020321@g.ucla.edu)
+# Date: Oct 21 2024
 
 ## setup workspace
 
@@ -21,16 +21,16 @@ set -xeo pipefail
 
 ## Define Variables
 
-WORKDIR=/u/project/rwayne/1joeynik/CAQU/ref_genome/GCA_023055505.1_bCalCai1.0.p
-AR_REFERENCE_SEQ=GCA_023055505.1_bCalCai1.0.p_genomic.fna.gz  # to archive
-REFERENCE_SEQ=GCA_023055505.1_bCalCai1.0.p_genomic.fasta
+WORKDIR=/u/home/y/yhanyu/project-klohmuel/CRLF_raw_data
+AR_REFERENCE_SEQ=GCA_029206835.1_Rmu.v1_genomic.fna.gz  # to archive
+REFERENCE_SEQ=???
 
 ## Main
 
 echo -e "[$(date "+%Y-%m-%d %T")] JOB ID ${JOB_ID}.${SGE_TASK_ID}: Download Reference Genome for CRLF..."
 cd ${WORKDIR}
 
-wget ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/023/055/505/GCA_023055505.1_bCalCai1.0.p/GCA_023055505.1_bCalCai1.0.p*
+wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/029/206/835/GCA_029206835.1_Rmu.v1/GCA_029206835.1_Rmu.v1_genomic.fna.gz
 
 exitVal=${?}
 if [ ${exitVal} -ne 0 ]; then
