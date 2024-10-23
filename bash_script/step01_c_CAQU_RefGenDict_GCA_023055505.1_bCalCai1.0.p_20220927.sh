@@ -1,28 +1,28 @@
 #!/bin/bash
 #$ -l highp,h_data=20G,h_rt=20:00:00
-#$ -wd <insert working directory>
-#$ -o <insert log directory>
-#$ -e <insert log directory>
+#$ -wd /u/home/y/yhanyu/project-klohmuel/CRLF_raw_data        # Set working directory
+#$ -o /u/home/y/yhanyu/project-klohmuel/logs/job_output.log  # output log
+#$ -e /u/home/y/yhanyu/project-klohmuel/logs/job_error.log   # error log
 #$ -m abe
 
 # Version: v1 
 # Usage: qsub step01_c_CRLF_RefGenDict_GCA_023055505.1_bCalCai1.0.p_20220927.sh
 # Description: making sequence dictionary for ref genome GCA_023055505.1_bCalCai1.0.p
-# Author: Joey Curti (jcurti3@g.ucla.edu)
-# Date: WED Sep 28 2022
+# Author: Hanyu Yang (yhy020321@g.ucla.edu)
+# Date: Oct 23 2024
 # References: 
 #https://gatkforums.broadinstitute.org/gatk/discussion/2798/howto-prepare-a-reference-for-use-with-bwa-and-gatk
 
 ## Setup workspace 
 
-source <insert miniconda directory>
+source /u/local/apps/anaconda3/2020.11/bin/
 conda activate CRLF
 
 set -xeo pipefail
 
 ## Define variables 
 
-HOMEDIR=/u/home/1/1joeynik/project-rwayne/CAQU
+HOMEDIR=/u/home/y/yhanyu/project-klohmuel/CRLF_raw_data
 WORKDIR=${HOMEDIR}/ref_genome/GCA_023055505.1_bCalCai1.0.p
 REFERENCE_SEQ='GCA_023055505.1_bCalCai1.0.p_genomic.fasta' # should be name of reference seq, extension should be fasta but not fna
 
@@ -63,7 +63,7 @@ echo -e "[$(date "+%Y-%m-%d %T")] JOB ID ${JOB_ID}; Done"
 
 echo -e "[$(date "+%Y-%m-%d %T")] JOB ID ${JOB_ID}; Picard sequence dictionary"
 
-picard -Xmx4G CreateSequenceDictionary \
+picard -Xmx4G CreateSequenceDictionary\
 REFERENCE=${REFERENCE_SEQ} # creates .dict file
 
 exitVal=${?}

@@ -15,7 +15,8 @@
 ## Setup workspace
 
 # Load the Miniconda environment
-source /u/local/apps/anaconda3/2020.11/bin/conda activate CRLF
+source /u/local/apps/anaconda3/2020.11/bin/
+conda activate CRLF
 
 # Set script to exit immediately on error and print commands
 set -xeo pipefail

@@ -1,9 +1,9 @@
 #!/bin/bash
 #$ -l h_rt=6:00:00,h_data=12G
 #$ -pe shared 2
-#$ -wd <insert working direcory path>
-#$ -o <insert log directory path>
-#$ -e <insert log directory path>
+#$ -wd /u/home/y/yhanyu/project-klohmuel/CRLF_raw_data        # Set working directory
+#$ -o /u/home/y/yhanyu/project-klohmuel/logs/job_output.log  # output log
+#$ -e /u/home/y/yhanyu/project-klohmuel/logs/job_error.log   # error log
 #$ -M 1joeynik
 #$ -m bea
 #$ -N step01_d_CAQU_catMultiLaneData
