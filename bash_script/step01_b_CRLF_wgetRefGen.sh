@@ -15,7 +15,7 @@
 ## setup workspace
 
 # Load the Miniconda environment
-source /u/local/apps/anaconda3/2020.11/bin/conda.sh
+source /u/local/apps/anaconda3/2020.11/bin/conda
 conda activate CRLF
 
 set -xeo pipefail

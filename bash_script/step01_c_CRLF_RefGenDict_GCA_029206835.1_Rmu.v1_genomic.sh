@@ -1,20 +1,19 @@
 #!/bin/bash
 #$ -l highp,h_data=20G,h_rt=20:00:00
-#$ -wd /u/home/y/yhanyu/project-klohmuel/CRLF_raw_data        # Set working directory
+#$ -wd /u/home/y/yhanyu/project-klohmuel/ref_genome       # Set working directory
 #$ -o /u/home/y/yhanyu/project-klohmuel/logs/job_output.log  # output log
 #$ -e /u/home/y/yhanyu/project-klohmuel/logs/job_error.log   # error log
 #$ -m abe
 
 # Version: v1 
-# Usage: qsub step01_c_CRLF_RefGenDict_GCA_023055505.1_bCalCai1.0.p_20220927.sh
-# Description: making sequence dictionary for ref genome GCA_023055505.1_bCalCai1.0.p
+# Usage: qsub step01_c_CRLF_RefGenDict_GCA_029206835.1_Rmu.v1_genomic.sh
+# Description: making sequence dictionary for ref genome
 # Author: Hanyu Yang (yhy020321@g.ucla.edu)
 # Date: Oct 23 2024
 # References: 
 #https://gatkforums.broadinstitute.ocd..rg/gatk/discussion/2798/howto-prepare-a-reference-for-use-with-bwa-and-gatk
 
-## Setup workspace 
-
+## Setup workspace
 source /u/local/apps/anaconda3/2020.11/bin/conda.sh
 conda activate CRLF
 
@@ -22,9 +21,9 @@ set -xeo pipefail
 
 ## Define variables 
 
-HOMEDIR=/u/home/y/yhanyu/project-klohmuel/CRLF_raw_data
-WORKDIR=${HOMEDIR}/ref_genome/GCA_023055505.1_bCalCai1.0.p
-REFERENCE_SEQ='GCA_023055505.1_bCalCai1.0.p_genomic.fasta' # should be name of reference seq, extension should be fasta but not fna
+HOMEDIR=/u/home/y/yhanyu/project-klohmuel/
+WORKDIR=${HOMEDIR}/ref_genome/
+REFERENCE_SEQ='GCA_029206835.1_Rmu.v1_genomic.fasta' # should be name of reference seq, extension should be fasta but not fna
 
 ## Main 
 
@@ -39,7 +38,7 @@ bwa index ${REFERENCE_SEQ} # creates many files such as .amb .ann .bwt .pac .rbw
 
 exitVal=${?}
 if [ ${exitVal} -ne 0 ]; then
-    echo -e "[$(date "+%Y-%m-%d %T")] FAIL" >> ${LOG}
+    echo -e "[$(date "+%Y-%m-%d %T")] FAIL" >> "${LOG}"
     exit 1
 fi
 
@@ -53,7 +52,7 @@ samtools faidx ${REFERENCE_SEQ} # Creates .fai file
 
 exitVal=${?}
 if [ ${exitVal} -ne 0 ]; then
-    echo -e "[$(date "+%Y-%m-%d %T")] FAIL" >> ${LOG}
+    echo -e "[$(date "+%Y-%m-%d %T")] FAIL" >> "${LOG}"
     exit 1
 fi
 
