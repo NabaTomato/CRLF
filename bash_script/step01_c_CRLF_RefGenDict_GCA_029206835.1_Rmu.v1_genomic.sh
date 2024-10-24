@@ -14,7 +14,7 @@
 #https://gatkforums.broadinstitute.ocd..rg/gatk/discussion/2798/howto-prepare-a-reference-for-use-with-bwa-and-gatk
 
 ## Setup workspace
-source /u/local/apps/anaconda3/2020.11/bin/conda.sh
+source /u/local/apps/anaconda3/2020.11/etc/profile.d/conda.sh
 conda activate CRLF
 
 set -xeo pipefail
