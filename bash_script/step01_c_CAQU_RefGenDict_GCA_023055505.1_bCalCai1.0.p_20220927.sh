@@ -11,11 +11,11 @@
 # Author: Hanyu Yang (yhy020321@g.ucla.edu)
 # Date: Oct 23 2024
 # References: 
-#https://gatkforums.broadinstitute.org/gatk/discussion/2798/howto-prepare-a-reference-for-use-with-bwa-and-gatk
+#https://gatkforums.broadinstitute.ocd..rg/gatk/discussion/2798/howto-prepare-a-reference-for-use-with-bwa-and-gatk
 
 ## Setup workspace 
 
-source /u/local/apps/anaconda3/2020.11/bin/
+source /u/local/apps/anaconda3/2020.11/bin/conda.sh
 conda activate CRLF
 
 set -xeo pipefail

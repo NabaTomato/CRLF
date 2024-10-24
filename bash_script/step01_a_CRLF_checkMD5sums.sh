@@ -15,7 +15,7 @@
 ## Setup workspace
 
 # Load the Miniconda environment
-source /u/local/apps/anaconda3/2020.11/bin/
+source /u/local/apps/anaconda3/2020.11/bin/conda.sh
 conda activate CRLF
 
 # Set script to exit immediately on error and print commands

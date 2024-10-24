@@ -1,13 +1,13 @@
 #!/bin/bash
 #$ -l highp,h_data=4G,h_rt=6:00:00
-#$ -wd /u/home/y/yhanyu/project-klohmuel/CRLF_raw_data        # Set working directory
+#$ -wd /u/home/y/yhanyu/project-klohmuel/ref_genome       # Set working directory
 #$ -o /u/home/y/yhanyu/project-klohmuel/logs/job_output.log  # output log
 #$ -e /u/home/y/yhanyu/project-klohmuel/logs/job_error.log   # error log
 #$ -m abe
-#$ -N step01_step01_b_CRLF_wgetRefGen
+#$ -N step01_b_CRLF_wgetRefGen
 
 # Version: v1
-# Usage: qsub step01_step01_b_CAQU_wgetRefGen.sh
+# Usage: qsub step01_b_CRLF_wgetRefGen.sh
 # Description: Download CRLF reference genome (Rana muscosa) from NCBI
 # Author: Hanyu Yang (yhy020321@g.ucla.edu)
 # Date: Oct 21 2024
@@ -15,16 +15,16 @@
 ## setup workspace
 
 # Load the Miniconda environment
-source /u/local/apps/anaconda3/2020.11/bin/
+source /u/local/apps/anaconda3/2020.11/bin/conda.sh
 conda activate CRLF
 
 set -xeo pipefail
 
 ## Define Variables
 
-WORKDIR=/u/home/y/yhanyu/project-klohmuel/CRLF_raw_data
+WORKDIR=/u/home/y/yhanyu/project-klohmuel/ref_genome
 AR_REFERENCE_SEQ=GCA_029206835.1_Rmu.v1_genomic.fna.gz  # to archive
-REFERENCE_SEQ=???
+REFERENCE_SEQ=GCA_029206835.1_Rmu.v1_genomic.fasta
 
 ## Main
 
@@ -35,7 +35,7 @@ wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/029/206/835/GCA_029206835.1_Rm
 
 exitVal=${?}
 if [ ${exitVal} -ne 0 ]; then
-    echo -e "[$(date "+%Y-%m-%d %T")] FAIL" >> ${LOG}
+    echo -e "[$(date "+%Y-%m-%d %T")] FAIL" >> "${LOG}"
     exit 1
 fi
 
@@ -50,7 +50,7 @@ gunzip ${REFERENCE_SEQ}.gz
 
 exitVal=${?}
 if [ ${exitVal} -ne 0 ]; then
-    echo -e "[$(date "+%Y-%m-%d %T")] FAIL" >> ${LOG}
+    echo -e "[$(date "+%Y-%m-%d %T")] FAIL" >> "${LOG}"
     exit 1
 fi
 
