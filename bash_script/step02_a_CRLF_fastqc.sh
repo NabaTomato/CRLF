@@ -9,7 +9,7 @@
 #$ -t <change according to how many files you are running this on>
 
 # Version: v2 running on 2024 sequenced samplese
-# Usage: qsub step02_a_CAQU_fastqc_20240404.sh
+# Usage: qsub step02_a_CRLF_fastqc.sh
 # Description: Run fastqc on CAQU fastq files
 # Author: Joey Curti (jcurti3@g.ucla.edu)
 # Date: THUR APR 04 2024

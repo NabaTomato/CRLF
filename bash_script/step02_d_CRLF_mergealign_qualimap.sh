@@ -8,7 +8,7 @@
 #$ -t <change according to the number of samples you can run simultaneously>
 
 # Version: v2 - editing to run on 2024 samples
-# Usage: qsub step02_d_CAQU_mergealign_qualimap_20240418.sh
+# Usage: qsub step02_d_CRLF_mergealign_qualimap.sh
 # Description: merge unmapped and mapped BAM, check quality of alignment using Qualimap
 # Author: Joey Curti (jcurti3@g.ucla.edu)
 # Date: THU APR 18 2024 

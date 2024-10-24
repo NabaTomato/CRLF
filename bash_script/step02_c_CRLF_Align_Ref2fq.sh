@@ -10,7 +10,7 @@
 #$ -N step02_c_CAQU_Align_Ref2fq_filesXXtoXX
 
 # Version: v2 - running on new samples from 2024
-# Usage: qsub step02_c_CAQU_Align_Ref2fq_20240418.sh
+# Usage: qsub step02_c_CRLF_Align_Ref2fq.sh
 # Description:  Script to align re-sequencing data for CAQU to reference genome GCA_023055505.1_bCalCai1.0.p
 # Author: Joseph Curti (jcurti3@g.ucla.edu)
 # Date: THU APR 18 2025

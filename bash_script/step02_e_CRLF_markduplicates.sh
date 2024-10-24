@@ -9,7 +9,7 @@
 #$ -N step02_e_CAQU_markduplicates_filesXXtoXX
 
 # Version: v2 - adapting for new sequencing data in 2024
-# Usage: qsub step02_e_CAQU_markduplicates_20240422.sh
+# Usage: qsub step02_e_CRLF_markduplicates.sh
 # Description: Marks duplicate reads in aligned BAM 
 # Author: Meixi Lin (meixilin@ucla.edu)
 # Adapted by: Joseph Curti (jcurti3@g.ucla.edu)

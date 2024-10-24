@@ -9,7 +9,7 @@
 #$ -N step02_f_CAQU_Haplotypecaller_ExcludeList_filesXXtoXX
 
 # Version: v1 - New version with data from 2024
-# Usage: qsub step02_f_CAQU_Haplotypecaller_ExcludeList_20240422.sh
+# Usage: qsub step02_f_CRLF_Haplotypecaller_ExcludeList.sh
 # Description: Generate haplotypes for CAQU resequencing data, included an interval exclude list of scaffolds that map to X chromosome
 # Author: Meixi Lin (meixilin@ucla.edu)
 # Adapted by: Joseph Curti (jcurti3@g.ucla.edu)
