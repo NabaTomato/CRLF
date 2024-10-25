@@ -1,42 +1,39 @@
 #! /bin/bash
 #$ -l h_rt=23:00:00,h_data=16G,h_vmem=24G
-#$ -wd <insert working directory path>
-#$ -o <insert log directory path>
-#$ -e <insert log directory path>
+#$ -wd /u/home/y/yhanyu/project-klohmuel/       # Set working directory
+#$ -o /u/home/y/yhanyu/project-klohmuel/logs/job_output.log  # output log
+#$ -e /u/home/y/yhanyu/project-klohmuel/logs/job_error.log   # error log
 #$ -m abe
-#$ -M 1joeynik
+#$ -M yhanyu
 #$ -N step02_a_CAQU_fastqc
 #$ -t <change according to how many files you are running this on>
 
-# Version: v2 running on 2024 sequenced samplese
+# Version: v1
 # Usage: qsub step02_a_CRLF_fastqc.sh
-# Description: Run fastqc on CAQU fastq files
-# Author: Joey Curti (jcurti3@g.ucla.edu)
-# Date: THUR APR 04 2024
+# Description: Run fastqc on CRLF fastq files
+# Author: Hanyu Yang (yhy020321@g.ucla.edu)
+# Date: Oct 24 2024
 
 ## Setup workspace 
 
 sleep $((RANDOM % 120))
 
-source <insert path to miniconda>
-conda activate my_fastqc 
+source /u/local/apps/anaconda3/2020.11/etc/profile.d/conda.sh
+conda activate CRLF
 
-set -eo pipefail
+set -xeo pipefail
 
 ## Define Variables 
 
-HOMEDIR=/u/home/1/1joeynik/project-rwayne/CAQU/
-SEQDIR=/u/home/1/1joeynik/project-rwayne/CAQU/raw_data/2024_samples
+HOMEDIR=/u/home/y/yhanyu/project-klohmuel/
+SEQDIR=${HOMEDIR}/CRLF_raw_data
 
 # Subdirectories
 mkdir -p ${SEQDIR}/fastqc
 mkdir -p ${SEQDIR}/temp
 
 # use a reference file
-SEQDICT=${HOMEDIR}/raw_data/20240409_CAQU_seq_metadata.txt
-
-# first line of fastq
-FIRSTLINE=${SEQDIR}/first_fastq_lines.txt
+SEQDICT=${SEQDIR}/20220331_CRLF_seq_metadata.txt
 
 # fastqc on forward reads and reverse reads
 ROWID=$((SGE_TASK_ID + 1))
@@ -48,7 +45,7 @@ R2FILE=$(awk -v rowid=${ROWID} 'NR == rowid {print $3}' ${SEQDICT})
 echo -e "[$(date "+%Y-%m-%d %T")] JOB ID ${JOB_ID}.${SGE_TASK_ID}; Starting fastqc"
 cd ${SEQDIR}
 
-fastqc ${R1FILE} ${R2FILE} -d ./temp --outdir ${SEQDIR}/fastqc
+fastqc "${R1FILE}" "${R2FILE}" -d ./temp --outdir ${SEQDIR}/fastqc
 
 exitVal=${?}
 if [ ${exitVal} -ne 0 ]; then
