@@ -8,7 +8,8 @@
 # Version: v1 
 # Usage: qsub step01_c_CRLF_RefGenDict_GCA_029206835.1_Rmu.v1_genomic.sh
 # Description: making sequence dictionary for ref genome
-# Author: Hanyu Yang (yhy020321@g.ucla.edu)
+# Author: Joseph Curti (jcurti3@g.ucla.edu)
+# Adapted by: Hanyu Yang (yhy020321@g.ucla.edu)
 # Date: Oct 23 2024
 # References: 
 #https://gatkforums.broadinstitute.ocd..rg/gatk/discussion/2798/howto-prepare-a-reference-for-use-with-bwa-and-gatk

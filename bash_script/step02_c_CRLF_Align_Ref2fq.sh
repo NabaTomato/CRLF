@@ -12,7 +12,8 @@
 # Version: v1
 # Usage: qsub step02_c_CRLF_Align_Ref2fq.sh
 # Description:  Script to align re-sequencing data for CRLF to reference genome GCA_029206835.1_Rmu.v1_genomic.fasta
-# Author: Hanyu Yang (yhy020321@g.ucla.edu)
+# Author: Joseph Curti (jcurti3@g.ucla.edu)
+# Adapted by: Hanyu Yang (yhy020321@g.ucla.edu)
 # Date: Oct 27 2024
 
 ## Setup workspace 

@@ -1,42 +1,42 @@
 #! /bin/bash
 #$ -l highp,h_rt=200:00:00,h_data=18G,h_vmem=36G
 #$ -pe shared 2
-#$ -wd <insert path to working directory>
-#$ -o <insert log directory path>
-#$ -e <insert log directory path>
+#$ -wd /u/home/y/yhanyu/project-klohmuel/CRLF_raw_data       # Set working directory
+#$ -o /u/home/y/yhanyu/project-klohmuel/logs/job_output.log  # output log
+#$ -e /u/home/y/yhanyu/project-klohmuel/logs/job_error.log   # error log
 #$ -m abe
-#$ -t <change according to number of samples you can run simultaneously>
-#$ -N step02_f_CAQU_Haplotypecaller_ExcludeList_filesXXtoXX
+#$ -t 1-12
+#$ -N step02_f_CRLF_Haplotypecaller_ExcludeList
 
-# Version: v1 - New version with data from 2024
+# Version: v1
 # Usage: qsub step02_f_CRLF_Haplotypecaller_ExcludeList.sh
-# Description: Generate haplotypes for CAQU resequencing data, included an interval exclude list of scaffolds that map to X chromosome
-# Author: Meixi Lin (meixilin@ucla.edu)
-# Adapted by: Joseph Curti (jcurti3@g.ucla.edu)
-# Date: MON APR 22 2024
+# Description: Generate haplotypes for CRLF resequencing data, included an interval exclude list of scaffolds that map to X chromosome
+# Author: Joseph Curti (jcurti3@g.ucla.edu)
+# Adapted by: Hanyu Yang (yhy020321@g.ucla.edu)
+# Date: Oct 27 2024
 
 ## Setup workspace
 
 sleep $((RANDOM % 120))
-source <insert path to miniconda>
-conda activate my_gatk
 
-set -o pipefail
+source /u/local/apps/anaconda3/2020.11/etc/profile.d/conda.sh
+conda activate CRLF
+
+set -xeo pipefail
 
 ## Define Variables ##
-HOMEDIR=/u/home/1/1joeynik/project-rwayne/CAQU
-WORKDIR=${HOMEDIR}/preprocessing/${NAME}
-VCFDIR=${HOMEDIR}/preprocessing/VCFs/2024/HaplotypeCaller
+HOMEDIR=/u/home/y/yhanyu/
+WORKDIR=${HOMEDIR}/project-klohmuel/CRLF_raw_data/Preprocessing/${NAME}
+VCFDIR=${HOMEDIR}/Preprocessing/VCFs/2024/HaplotypeCaller
 mkdir -p ${WORKDIR}
 mkdir -p ${VCFDIR}
-SEQDICT2024=<insert path to sequence dictionary>
-REFERENCE=<insert path to reference genome directory>
-REF='GCA_023055505.1_bCalCai1.0.p'
+SEQDICT=${HOMEDIR}/project-klohmuel/CRLF_raw_data/20220331_CRLF_seq_metadata.txt
+REF='Rmuscosa'
+REFERENCE=/${HOMEDIR}/project-klohmuel/ref_genome/GCA_029206835.1_Rmu.v1_genomic.fasta
 EXCLUDELIST=<insert path to directory containing intervals that you want to exclude>
 
 ROWID=$((SGE_TASK_ID + 1))
-NAME=$(awk -v rowid=${ROWID} 'NR == rowid {print $1}' ${SEQDICT2024})
-RGPU=$(awk -v rowid=${ROWID} 'NR == rowid {print $10}' ${SEQDICT2024})
+NAME=$(awk -v rowid=${ROWID} 'NR == rowid {print $1}' ${SEQDICT})
 
 ## MAIN ##
 
@@ -53,8 +53,8 @@ gatk3 -Xmx30G -Djava.io.tmpdir=./temp\ -XX:ParallelGCThreads=2 -T HaplotypeCalle
 -mbq 20 \
 -out_mode EMIT_ALL_SITES \
 -XL ${EXCLUDELIST} \
--I ${HOMEDIR}/preprocessing/${NAME}/${RGPU}_${REF}_MergeAligned_MarkDuplicates.bam \
--o ${VCFDIR}/${RGPU}_${REF}_HaplotypeCaller.g.vcf.gz 
+-I ${HOMEDIR}/preprocessing/${NAME}/${NAME}_${REF}_MergeAligned_MarkDuplicates.bam \
+-o ${VCFDIR}/${NAME}_${REF}_HaplotypeCaller.g.vcf.gz
 
 exitVal=${?}
 if [ ${exitVal} -ne 0 ]; then

@@ -9,7 +9,8 @@
 # Version: v1
 # Usage: qsub step01_a_CRLF_checkMD5sums.sh
 # Description: Check if file transfer was successful using MD5
-# Author: Hanyu Yang (yhy020321@g.ucla.edu)
+# Author: Joseph Curti (jcurti3@g.ucla.edu)
+# Adapted by: Hanyu Yang (yhy020321@g.ucla.edu)
 # Date: OCT 18 2024
 
 ## Setup workspace

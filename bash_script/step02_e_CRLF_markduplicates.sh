@@ -1,55 +1,57 @@
 #! /bin/bash
 #$ -l highp,h_rt=120:00:00,h_data=8G,h_vmem=64G
 #$ -pe shared 8
-#$ -wd <insert path to working directory>
-#$ -o <insert path to log directory>
-#$ -e <insert path to log directory>
+#$ -wd /u/home/y/yhanyu/project-klohmuel/CRLF_raw_data       # Set working directory
+#$ -o /u/home/y/yhanyu/project-klohmuel/logs/job_output.log  # output log
+#$ -e /u/home/y/yhanyu/project-klohmuel/logs/job_error.log   # error log
 #$ -m abe
-#$ -t <change according to how many samples you can run simultaneously>
-#$ -N step02_e_CAQU_markduplicates_filesXXtoXX
+#$ -t 1-12
+#$ -N step02_e_CRLF_markduplicates_files
 
-# Version: v2 - adapting for new sequencing data in 2024
-# Usage: qsub step02_e_CRLF_markduplicates.sh
+# Version: v1
+# Usage: qsub step02_e_CRLF_markduplicates_files.sh
 # Description: Marks duplicate reads in aligned BAM 
-# Author: Meixi Lin (meixilin@ucla.edu)
-# Adapted by: Joseph Curti (jcurti3@g.ucla.edu)
-# Date: MON APR 22 2024
+# Author: Joseph Curti (jcurti3@g.ucla.edu)
+# Adapted by: Hanyu Yang (yhy020321@g.ucla.edu)
+# Date: Oct 27 2024
 
 ## SETUP WORKSPACE  ##
 
 sleep $((RANDOM % 120))
-source <insert path to miniconda>
-conda activate my_picard
 
-set -o pipefail
+source /u/local/apps/anaconda3/2020.11/etc/profile.d/conda.sh
+conda activate CRLF
+
+set -xeo pipefail
+
 
 ## Define Variables 
 
-WORKDIR=${HOMEDIR}/preprocessing/${NAME}
-mkdir -p ${WORKDIR}
-SEQDICT2024=<insert path to sequence dictionary>
-REF='GCA_023055505.1_bCalCai1.0.p'
+HOMEDIR=/u/home/y/yhanyu/
+WORKDIR=${HOMEDIR}/project-klohmuel/CRLF_raw_data/Preprocessing/${NAME}
+mkdir -p "${WORKDIR}"
+SEQDICT=${HOMEDIR}/project-klohmuel/CRLF_raw_data/20220331_CRLF_seq_metadata.txt
+REF='Rmuscosa'
 
 ROWID=$((SGE_TASK_ID + 1))
-NAME=$(awk -v rowid=${ROWID} 'NR == rowid {print $1}' ${SEQDICT2024})
-RGPU=$(awk -v rowid=${ROWID} 'NR == rowid {print $10}' ${SEQDICT2024})
+NAME=$(awk -v rowid=${ROWID} 'NR == rowid {print $1}' ${SEQDICT})
 
 ## Main
 
-echo -e "[$(date "+%Y-%m-%d %T")] JOB ID ${JOB_ID}; Input = ${RDPU} ${REF}; Starting markduplicates process"
+echo -e "[$(date "+%Y-%m-%d %T")] JOB ID ${JOB_ID}; Input = ${NAME} ${REF}; Starting markduplicates process"
 
-cd ${WORKDIR}
+cd "${WORKDIR}"
 mkdir -p temp
 
 # MarkDuplicates
 
 picard -Xmx45G -Djava.io.tmpdir=./temp MarkDuplicates \
-INPUT=${RGPU}_${REF}_MergeAligned.bam \
-OUTPUT=${RGPU}_${REF}_MergeAligned_MarkDuplicates.bam \
-METRICS_FILE=${RGPU}_${REF}_MarkDuplicates_metrics.txt \
+INPUT="${NAME}"_${REF}_MergeAligned.bam \
+OUTPUT="${NAME}"_${REF}_MergeAligned_MarkDuplicates.bam \
+METRICS_FILE="${NAME}"_${REF}_MarkDuplicates_metrics.txt \
 MAX_RECORDS_IN_RAM=150000 MAX_FILE_HANDLES_FOR_READ_ENDS_MAP=1000 \
 CREATE_INDEX=true \
-TMP_DIR=./temp 
+TMP_DIR=./temp
 
 exitVal=${?}
 if [ ${exitVal} -ne 0 ]; then

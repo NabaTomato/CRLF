@@ -10,7 +10,8 @@
 # Version: v1
 # Usage: qsub step02_d_CRLF_mergealign_qualimap.sh
 # Description: merge unmapped and mapped BAM, check quality of alignment using Qualimap
-# Author: Hanyu Yang (yhy020321@g.ucla.edu)
+# Author: Joseph Curti (jcurti3@g.ucla.edu)
+# Adapted by: Hanyu Yang (yhy020321@g.ucla.edu)
 # Date: Oct 27 2024
 
 ## Setup workspace

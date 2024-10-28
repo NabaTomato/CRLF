@@ -11,7 +11,8 @@
 # Version: v1
 # Usage: qsub step02_a_CRLF_fastqc.sh
 # Description: Run fastqc on CRLF fastq files
-# Author: Hanyu Yang (yhy020321@g.ucla.edu)
+# Author: Joseph Curti (jcurti3@g.ucla.edu)
+# Adapted by: Hanyu Yang (yhy020321@g.ucla.edu)
 # Date: Oct 24 2024
 
 ## Setup workspace 

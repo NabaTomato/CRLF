@@ -11,7 +11,8 @@
 # Version: v1
 # Usage: qsub step02_b_CRLF_FastqToSam_MarkAdapters.sh
 # Description: Pipeline to process CRLF files before alignment
-# Author: Hanyu Yang (yhy020321@g.ucla.edu)
+# Author: Joseph Curti (jcurti3@g.ucla.edu)
+# Adapted by: Hanyu Yang (yhy020321@g.ucla.edu)
 # Date: Oct 27 2024
 
 ## SETUP WORKSPACE  ##

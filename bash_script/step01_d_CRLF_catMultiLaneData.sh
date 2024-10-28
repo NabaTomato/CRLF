@@ -11,7 +11,8 @@
 # Version: v1
 # Usage: qsub step01_d_CRLF_catMultiLaneData.sh <sample_id_1> <sample_id_2> ...
 # Description: Concatenate raw data originating from multiple lanes of sequencing for multiple samples
-# Author: Hanyu Yang (yhy020321@g.ucla.edu)
+# Author: Joseph Curti (jcurti3@g.ucla.edu)
+# Adapted by: Hanyu Yang (yhy020321@g.ucla.edu)
 # Date: Oct 24 2024
 # References:
 # https://knowledge.illumina.com/software/cloud-software/software-cloud-software-reference_material-list/000002035

@@ -9,7 +9,8 @@
 # Version: v1
 # Usage: qsub step01_b_CRLF_wgetRefGen.sh
 # Description: Download CRLF reference genome (Rana muscosa) from NCBI
-# Author: Hanyu Yang (yhy020321@g.ucla.edu)
+# Author: Joseph Curti (jcurti3@g.ucla.edu)
+# Adapted by: Hanyu Yang (yhy020321@g.ucla.edu)
 # Date: Oct 21 2024
 
 ## setup workspace
