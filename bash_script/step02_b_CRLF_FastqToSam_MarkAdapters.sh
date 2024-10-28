@@ -26,8 +26,8 @@ set -xeo pipefail
 ## Define Variables ##
 
 HOMEDIR=/u/home/y/yhanyu/
-WORKDIR=${HOMEDIR}/CRLF_raw_data/Preprocessing/${NAME}
-SEQDICT=${HOMEDIR}/CRLF_raw_data/20220331_CRLF_seq_metadata.txt
+WORKDIR=${HOMEDIR}/project-klohmuel/CRLF_raw_data/Preprocessing/${NAME}
+SEQDICT=${HOMEDIR}/project-klohmuel/CRLF_raw_data/20220331_CRLF_seq_metadata.txt
 mkdir -p "${WORKDIR}"
 
 ROWID=$((SGE_TASK_ID + 1))
@@ -95,8 +95,8 @@ echo -e "[$(date "+%Y-%m-%d %T")] Done with Picard MarkAdapters... "
 echo -e "[$(date "+%Y-%m-%d %T")] JOB ID ${JOB_ID}.${SGE_TASK_ID} Prepare for aligning: Picard SamToFastq... " 
 
 picard -Xmx20G SamToFastq \
-INPUT="${RGPU}"_MarkAdapters.bam \
-FASTQ="${RGPU}"_MarkAdapters.fastq \
+INPUT="${NAME}"_MarkAdapters.bam \
+FASTQ="${NAME}"_MarkAdapters.fastq \
 CLIPPING_ATTRIBUTE=XT CLIPPING_ACTION=2 INTERLEAVE=true NON_PF=true \
 TMP_DIR=./temp
 

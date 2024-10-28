@@ -1,43 +1,44 @@
 #! /bin/bash
 #$ -l highp,h_rt=80:00:00,h_data=60G
-#$ -wd <insert working directory path>
-#$ -o <insert log directory path>
-#$ -e <insert log directory path>
+#$ -wd /u/home/y/yhanyu/project-klohmuel/CRLF_raw_data       # Set working directory
+#$ -o /u/home/y/yhanyu/project-klohmuel/logs/job_output.log  # output log
+#$ -e /u/home/y/yhanyu/project-klohmuel/logs/job_error.log   # error log
 #$ -m abe
-#$ -N step02_d_CAQU_mergealign_qualimap_filesXXtoXX
-#$ -t <change according to the number of samples you can run simultaneously>
+#$ -N step02_d_CRLF_mergealign_qualimap
+#$ -t 1-12
 
-# Version: v2 - editing to run on 2024 samples
+# Version: v1
 # Usage: qsub step02_d_CRLF_mergealign_qualimap.sh
 # Description: merge unmapped and mapped BAM, check quality of alignment using Qualimap
-# Author: Joey Curti (jcurti3@g.ucla.edu)
-# Date: THU APR 18 2024 
+# Author: Hanyu Yang (yhy020321@g.ucla.edu)
+# Date: Oct 27 2024
 
 ## Setup workspace
 
 sleep $((RANDOM % 120))
-source <insert path to miniconda>
-conda activate my_picard
 
-set -o pipefail
+source /u/local/apps/anaconda3/2020.11/etc/profile.d/conda.sh
+conda activate CRLF
+
+set -xeo pipefail
 
 ## Define variables
 
-WORKDIR=${HOMEDIR}/preprocessing/${NAME}
-mkdir -p ${WORKDIR}
-SEQDICT2024=<insert path to sequence dictionary>
-REF='GCA_023055505.1_bCalCai1.0.p'
-REFERENCE=<insert path to reference sequence directory>
+HOMEDIR=/u/home/y/yhanyu/
+WORKDIR=${HOMEDIR}/project-klohmuel/CRLF_raw_data/Preprocessing/${NAME}
+mkdir -p "${WORKDIR}"
+SEQDICT=${HOMEDIR}/project-klohmuel/CRLF_raw_data/20220331_CRLF_seq_metadata.txt
+REF='Rmuscosa'
+REFERENCE=/${HOMEDIR}/project-klohmuel/ref_genome/GCA_029206835.1_Rmu.v1_genomic.fasta
 
 ROWID=$((SGE_TASK_ID + 1))
-NAME=$(awk -v rowid=${ROWID} 'NR == rowid {print $1}' ${SEQDICT2024})
-RGPU=$(awk -v rowid=${ROWID} 'NR == rowid {print $10}' ${SEQDICT2024})
+NAME=$(awk -v rowid=${ROWID} 'NR == rowid {print $1}' ${SEQDICT})
 
 ## Main
 
-echo -e "[$(date "+%Y-%m-%d %T")] JOB ID ${JOB_ID}; Input = ${RGPU} ${REF}; Starting merging BAM files and qualimap"
+echo -e "[$(date "+%Y-%m-%d %T")] JOB ID ${JOB_ID}; Input = ${NAME} ${REF}; Starting merging BAM files and qualimap"
 
-cd ${WORKDIR}
+cd "${WORKDIR}"
 mkdir -p temp
 
 echo -e "[$(date "+%Y-%m-%d %T")] JOB ID ${JOB_ID} Merge Bam..."
@@ -45,9 +46,9 @@ echo -e "[$(date "+%Y-%m-%d %T")] JOB ID ${JOB_ID} Merge Bam..."
 # merge bam alignment
 
 picard -Xmx50G MergeBamAlignment \
-ALIGNED_BAM=${RGPU}_${REF}_BWA_Aligned.bam \
-UNMAPPED_BAM=${RGPU}_FastqToSam.bam \
-OUTPUT=${RGPU}_${REF}_MergeAligned.bam \
+ALIGNED_BAM="${NAME}"_${REF}_BWA_Aligned.bam \
+UNMAPPED_BAM="${NAME}"_FastqToSam.bam \
+OUTPUT="${NAME}"_${REF}_MergeAligned.bam \
 R=${REFERENCE} CREATE_INDEX=false \
 ADD_MATE_CIGAR=true CLIP_ADAPTERS=false CLIP_OVERLAPPING_READS=true \
 INCLUDE_SECONDARY_ALIGNMENTS=true MAX_INSERTIONS_OR_DELETIONS=-1 \
@@ -64,11 +65,9 @@ echo -e "[$(date "+%Y-%m-%d %T")] Done"
 
 # Run qualimap on aligned bam
 
-echo -e "[$(date "+%Y-%m-%d %T")] JOB ID ${JOB_ID}  Qualimap... " 
+echo -e "[$(date "+%Y-%m-%d %T")] JOB ID ${JOB_ID}  Qualimap... "
 
-conda activate my_qualimap
-
-qualimap bamqc -bam ${RGPU}_${REF}_MergeAligned.bam -outdir ${WORKDIR} -c --java-mem-size=50G
+qualimap bamqc -bam "${RGPU}"_${REF}_MergeAligned.bam -outdir "${WORKDIR}" -c --java-mem-size=50G
 
 exitVal=${?}
 if [ ${exitVal} -ne 0 ]; then

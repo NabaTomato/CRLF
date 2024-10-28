@@ -27,25 +27,27 @@ set -xeo pipefail
 ## Define variables
 
 HOMEDIR=/u/home/y/yhanyu/
-WORKDIR=${HOMEDIR}/CRLF_raw_data/Preprocessing/${NAME}
-SEQDICT=${HOMEDIR}/CRLF_raw_data/20220331_CRLF_seq_metadata.txt
+WORKDIR=${HOMEDIR}/project-klohmuel/CRLF_raw_data/Preprocessing/${NAME}
+SEQDICT=${HOMEDIR}/project-klohmuel/CRLF_raw_data/20220331_CRLF_seq_metadata.txt
+REF='Rmuscosa'
+REFERENCE=/${HOMEDIR}/project-klohmuel/ref_genome/GCA_029206835.1_Rmu.v1_genomic.fasta
+
 mkdir -p "${WORKDIR}"
 
 ROWID=$((SGE_TASK_ID + 1))
 NAME=$(awk -v rowid=${ROWID} 'NR == rowid {print $1}' "${SEQDICT}")
-RGPU=$(awk -v rowid=${ROWID} 'NR == rowid {print $6}' "${SEQDICT}")
 
 ## Main 
 
-echo -e "[$(date "+%Y-%m-%d %T")] JOB ID ${JOB_ID}.${SGE_TASK_ID}; Input =${RGPU} ${REF}; Starting to align using bwa-mem"
+echo -e "[$(date "+%Y-%m-%d %T")] JOB ID ${JOB_ID}.${SGE_TASK_ID}; Input =${NAME} ${REF}; Starting to align using bwa-mem"
 
 cd "${WORKDIR}"
 mkdir -p temp
 
 # AlignCleanBam
 
-bwa mem -M -t 15 -p -o "${RGPU}"_"${REF}"_BWA_Aligned.bam \
-"${REFERENCE}" "${RGPU}"_MarkIlluminaAdapters.fastq
+bwa mem -M -t 15 -p -o "${NAME}"_"${REF}"_BWA_Aligned.bam \
+"${REFERENCE}" "${NAME}"_MarkAdapters.fastq
 
 exitVal=${?}
 if [ ${exitVal} -ne 0 ]; then
