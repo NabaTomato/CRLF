@@ -21,8 +21,8 @@ set -xeo pipefail
 
 ## Define variables 
 
-HOMEDIR=/u/home/y/yhanyu/project-klohmuel/
-WORKDIR=${HOMEDIR}/ref_genome/
+HOMEDIR=/u/home/y/yhanyu/
+WORKDIR=${HOMEDIR}/project-klohmuel/ref_genome/
 REFERENCE_SEQ='GCA_029206835.1_Rmu.v1_genomic.fasta' # should be name of reference seq, extension should be fasta but not fna
 
 ## Main 

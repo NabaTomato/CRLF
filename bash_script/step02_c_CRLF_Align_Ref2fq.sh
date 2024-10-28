@@ -1,48 +1,51 @@
 #! /bin/bash
 #$ -l highp,h_rt=60:00:00,h_data=20G,h_vmem=200G
 #$ -pe shared 10
-#$ -wd <insert working directory path>
-#$ -o <insert log directory path>
-#$ -e <insert log directory path>
+#$ -wd /u/home/y/yhanyu/project-klohmuel/CRLF_raw_data       # Set working directory
+#$ -o /u/home/y/yhanyu/project-klohmuel/logs/job_output.log  # output log
+#$ -e /u/home/y/yhanyu/project-klohmuel/logs/job_error.log   # error log
 #$ -m abe
-#$ -u 1joeynik
-#$ -t <change to the file numbers depending on how many jobs you can simultaneously run>
-#$ -N step02_c_CAQU_Align_Ref2fq_filesXXtoXX
+#$ -M yhanyu
+#$ -t 1-12
+# $ -N step02_c_CRLF_Align_Ref2fq
 
-# Version: v2 - running on new samples from 2024
+# Version: v1
 # Usage: qsub step02_c_CRLF_Align_Ref2fq.sh
-# Description:  Script to align re-sequencing data for CAQU to reference genome GCA_023055505.1_bCalCai1.0.p
-# Author: Joseph Curti (jcurti3@g.ucla.edu)
-# Date: THU APR 18 2025
+# Description:  Script to align re-sequencing data for CRLF to reference genome GCA_029206835.1_Rmu.v1_genomic.fasta
+# Author: Hanyu Yang (yhy020321@g.ucla.edu)
+# Date: Oct 27 2024
 
 ## Setup workspace 
 
 sleep $((RANDOM % 120))
-source <insert path to miniconda>
-conda activate my_bwa
 
-set -o pipefail
+source /u/local/apps/anaconda3/2020.11/etc/profile.d/conda.sh
+conda activate CRLF
 
-## Define variables 
+set -xeo pipefail
 
-WORKDIR=${HOMEDIR}/preprocessing/${NAME}
-mkdir -p ${WORKDIR}
+## Define variables
+
+HOMEDIR=/u/home/y/yhanyu/
+WORKDIR=${HOMEDIR}/CRLF_raw_data/Preprocessing/${NAME}
+SEQDICT=${HOMEDIR}/CRLF_raw_data/20220331_CRLF_seq_metadata.txt
+mkdir -p "${WORKDIR}"
 
 ROWID=$((SGE_TASK_ID + 1))
-NAME=$(awk -v rowid=${ROWID} 'NR == rowid {print $1}' ${SEQDICT2024}) 
-RGPU=$(awk -v rowid=${ROWID} 'NR == rowid {print $10}' ${SEQDICT2024}) 
+NAME=$(awk -v rowid=${ROWID} 'NR == rowid {print $1}' "${SEQDICT}")
+RGPU=$(awk -v rowid=${ROWID} 'NR == rowid {print $6}' "${SEQDICT}")
 
 ## Main 
 
 echo -e "[$(date "+%Y-%m-%d %T")] JOB ID ${JOB_ID}.${SGE_TASK_ID}; Input =${RGPU} ${REF}; Starting to align using bwa-mem"
 
-cd ${WORKDIR}
+cd "${WORKDIR}"
 mkdir -p temp
 
 # AlignCleanBam
 
-bwa mem -M -t 15 -p -o ${RGPU}_${REF}_BWA_Aligned.bam \
-${REFERENCE} ${RGPU}_MarkIlluminaAdapters.fastq 
+bwa mem -M -t 15 -p -o "${RGPU}"_"${REF}"_BWA_Aligned.bam \
+"${REFERENCE}" "${RGPU}"_MarkIlluminaAdapters.fastq
 
 exitVal=${?}
 if [ ${exitVal} -ne 0 ]; then

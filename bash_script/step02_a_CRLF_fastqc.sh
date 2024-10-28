@@ -5,8 +5,8 @@
 #$ -e /u/home/y/yhanyu/project-klohmuel/logs/job_error.log   # error log
 #$ -m abe
 #$ -M yhanyu
-#$ -N step02_a_CAQU_fastqc
-#$ -t <change according to how many files you are running this on>
+#$ -N step02_a_CRLF_fastqc
+#$ -t 1-12
 
 # Version: v1
 # Usage: qsub step02_a_CRLF_fastqc.sh
@@ -25,8 +25,9 @@ set -xeo pipefail
 
 ## Define Variables 
 
-HOMEDIR=/u/home/y/yhanyu/project-klohmuel/
-SEQDIR=${HOMEDIR}/CRLF_raw_data
+HOMEDIR=/u/home/y/yhanyu/
+WORKDIR=${HOMEDIR}/project-klohmuel/
+SEQDIR=${WORKDIR}/CRLF_raw_data
 
 # Subdirectories
 mkdir -p ${SEQDIR}/fastqc
@@ -45,7 +46,7 @@ R2FILE=$(awk -v rowid=${ROWID} 'NR == rowid {print $3}' ${SEQDICT})
 echo -e "[$(date "+%Y-%m-%d %T")] JOB ID ${JOB_ID}.${SGE_TASK_ID}; Starting fastqc"
 cd ${SEQDIR}
 
-fastqc "${R1FILE}" "${R2FILE}" -d ./temp --outdir ${SEQDIR}/fastqc
+fastqc "${R1FILE}" "${R2FILE}" -d ${SEQDIR}/temp -o ${SEQDIR}/fastqc
 
 exitVal=${?}
 if [ ${exitVal} -ne 0 ]; then
