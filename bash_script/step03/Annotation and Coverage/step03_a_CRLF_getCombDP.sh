@@ -9,7 +9,7 @@
 #$ -t <change according to how many scaffolds you can run simultaneously>
 
 # Version: V2 - adding in new 2024 samples from MVZ, NHMLA, and WFVZ
-# Usage: qsub step03_a_CAQU_getCombDP_20240602.sh
+# Usage: qsub step03_a_CRLF_getCombDP.sh
 # Description: Use this to get annotations in VCF file in order to calculate DP cutoff for hard filtering
 # Author: Joseph Curti (jcurti3@g.ucla.edu)
 # Date: MON JUN 02 2024

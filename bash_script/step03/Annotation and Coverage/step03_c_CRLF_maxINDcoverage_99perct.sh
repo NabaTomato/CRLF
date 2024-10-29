@@ -8,7 +8,7 @@
 #$ -M 1joeynik
 
 # Version: V2 - adding in 2024 samples from MVZ, NHMLA, and WFVZ
-# Usage: qsub step03_c_CAQU_maxINDcoverage_99perct_20240602.sh
+# Usage: qsub step03_c_CRLF_maxINDcoverage_99perct.sh
 # Description: cat the files produced by step03_d_CAQU_getINDcoverage.sh in order to get the max coverage for each individual CAQU
 # Author: Chris Kyriazis
 # Adapted by: Joseph Curti (jcurti3@g.ucla.edu)
