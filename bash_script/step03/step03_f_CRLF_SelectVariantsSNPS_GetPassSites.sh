@@ -7,7 +7,7 @@
 #$ -N step03_f_CAQU_SelectVariantsSNPS_GetPassSites
 
 # Version: v2 - adding samples from MVZ, NHMLA, and WFVZ
-# Usage: qsub step03_f_CAQU_SelectVariantsSNPS_GetPassSites_20240613.sh
+# Usage: qsub step03_f_CRLF_SelectVariantsSNPS_GetPassSites.sh
 # Description: Select SNPs from combined/filtered gVCF then select sites that passed site and genotype-level filters
 # Adapted By: Joseph Curti (jcurti3@g.ucla.edu)
 # Author: Chris Kyriazis

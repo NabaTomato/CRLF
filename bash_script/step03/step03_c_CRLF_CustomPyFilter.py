@@ -7,7 +7,7 @@ Output: filtered VCF prints to screen
 - Filtered out genotypes are changed to './.', all others reported
 - Sites with non-reference alleles remaining after genotype filtering also filtered based on values in INFO column
 Possible usage:
-SCRIPT=step03_c_CAQU_CustomPyFilter_20240612.py
+SCRIPT=step03_c_CRLF_CustomPyFilter.py
 python ${SCRIPT} myfile.vcf.gz | bgzip > myfile_filtered.vcf.gz
 tabix -p vcf myfile_filtered.vcf.gz
 '''

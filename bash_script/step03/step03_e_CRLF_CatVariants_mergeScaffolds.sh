@@ -8,7 +8,7 @@
 #$ -N step03_e_CAQU_CatVariants_mergeScaffolds
 
 # Version: v2 - adding samples from MVZ, NHMLA, and WFVZ
-# Usage: qsub step03_e_CAQU_CatVariants_mergeScaffolds_20240613.sh
+# Usage: qsub step03_e_CRLF_CatVariants_mergeScaffolds.sh
 # Description: Concatenate all of the individual scaffold VCF files into one file
 # Adapted By: Joseph Curti (jcurti3@g.ucla.edu)
 # Author: Chris Kyriazis

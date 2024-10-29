@@ -9,7 +9,7 @@
 #$ -t <change this to reflect the number of scaffolds that can be run simultaneously>
 
 # Version: v2 - Revising to include samples from MVZ and museums
-# Usage: qsub step03_a_CAQU_GenotypeGVCF_ExcludeList_20240512.sh
+# Usage: qsub step03_a_CRLF_GenotypeGVCF_ExcludeList.sh
 # Description: Joint genotyping on all 62 CAQU samples
 # Author: Joseph Curti (jcurti3@g.ucla.edu)
 # Date: THU MAY 30 2024

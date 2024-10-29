@@ -9,7 +9,7 @@
 #$ -t <adjust according to how many scaffolds you can run simultaneously>
 
 # Version: V2 - Adding in samples from  MVZ, and WFVZ
-# Usage: qsub step03_c_CAQU_VariantFiltration_20240610.sh
+# Usage: qsub step03_c_CRLF_VariantFiltration.sh
 # Description: Hard quaility filtering for CAQU samples
 # Author: Joseph Curti (jcurti3@g.ucla.edu)
 # Date: MON JUN 10 2024

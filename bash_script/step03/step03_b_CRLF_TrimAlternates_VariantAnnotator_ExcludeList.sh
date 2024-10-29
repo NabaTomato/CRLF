@@ -9,7 +9,7 @@
 #$ -t <change according to how many scaffolds can be run simultaneously>
 
 # Version: v2 - including additional samples from MVZ and NHMLA/WFVZ
-# Usage: qsub step03_b_CAQU_TrimAlternates_VariantAnnotator_ExcludeList_20240531.sh
+# Usage: qsub step03_b_CRLF_TrimAlternates_VariantAnnotator_ExcludeList.sh
 # Description: Trimming alternate alleles and annotating variant type, excludes scaffolds that align to the chicken Z chromosome
 # Author: Joseph Curti (jcurti3@g.ucla.edu)
 # Date: MON JUN 02 2024
