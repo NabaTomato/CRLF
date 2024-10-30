@@ -27,7 +27,7 @@ set -xeo pipefail
 ## Define Variables ##
 HOMEDIR=/u/home/y/yhanyu/
 WORKDIR=${HOMEDIR}/project-klohmuel/CRLF_raw_data/Preprocessing/${NAME}
-VCFDIR=${HOMEDIR}/Preprocessing/VCFs/2024/HaplotypeCaller
+VCFDIR=${HOMEDIR}/project-klohmuel/CRLF_raw_data/Preprocessing/VCFs/HaplotypeCaller
 mkdir -p ${WORKDIR}
 mkdir -p ${VCFDIR}
 SEQDICT=${HOMEDIR}/project-klohmuel/CRLF_raw_data/20220331_CRLF_seq_metadata.txt

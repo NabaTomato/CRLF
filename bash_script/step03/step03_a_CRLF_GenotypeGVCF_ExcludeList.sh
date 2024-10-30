@@ -1,26 +1,28 @@
 #! /bin/bash
 #$ -l highp,h_rt=120:00:00,h_data=20G,h_vmem=60G
 #$ -pe shared 3
-#$ -wd <insert working directory path>
-#$ -o <insert log directory path>
-#$ -e <insert log directory path>
+#$ -wd /u/home/y/yhanyu/project-klohmuel/CRLF_raw_data       # Set working directory
+#$ -o /u/home/y/yhanyu/project-klohmuel/logs/job_output.log  # output log
+#$ -e /u/home/y/yhanyu/project-klohmuel/logs/job_error.log   # error log
 #$ -m abe
-#$ -N step03_a_CAQU_GenotypeGVCF_ExcludeList
+#$ -N step03_a_CRLF_GenotypeGVCF_ExcludeList
 #$ -t <change this to reflect the number of scaffolds that can be run simultaneously>
 
 # Version: v2 - Revising to include samples from MVZ and museums
 # Usage: qsub step03_a_CRLF_GenotypeGVCF_ExcludeList.sh
-# Description: Joint genotyping on all 62 CAQU samples
+# Description: Joint genotyping on all 62 CRLF samples
 # Author: Joseph Curti (jcurti3@g.ucla.edu)
-# Date: THU MAY 30 2024
+# Adapted by: Hanyu Yang (yhy020321@g.ucla.edu)
+# Date: Oct 27 2024
 
 ## SETUP WORKSPACE
 
 sleep $((RANDOM % 120))
-source <insert path to miniconda>
-conda activate my_gatk
 
-set -o pipefail
+source /u/local/apps/anaconda3/2020.11/etc/profile.d/conda.sh
+conda activate CRLF
+
+set -xeo pipefail
 
 ## Define Variables
 
@@ -28,10 +30,12 @@ BED=<insert path to intervals directory>
 
 # Working directories
 
-WORKDIR=<insert path to gVCFs from HaplotypeCaller output>
-VCFDIR=<insert output directory>
+HOMEDIR=/u/home/y/yhanyu/
+WORKDIR=${HOMEDIR}/project-klohmuel/CRLF_raw_data/Preprocessing/${NAME}
+VCFDIR=${HOMEDIR}/project-klohmuel/CRLF_raw_data/Preprocessing/VCFs/HaplotypeCaller
+mkdir -p ${WORKDIR}
 mkdir -p ${VCFDIR}
-REFERENCE=<insert path to reference sequence>
+REFERENCE=/${HOMEDIR}/project-klohmuel/ref_genome/GCA_029206835.1_Rmu.v1_genomic.fasta
 
 ## MAIN
 
